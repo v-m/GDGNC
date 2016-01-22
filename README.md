@@ -1,1 +1,1 @@
-# SoftwareGenerativeModel
+# Generalized Double GNC (GDGNC)

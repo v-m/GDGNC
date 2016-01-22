@@ -1,0 +1,12 @@
+net.sourceforge.jtds.jdbc;net.sourceforge.jtds.jdbc.cache
+net.sourceforge.jtds.jdbc;net.sourceforge.jtds.jdbcx
+net.sourceforge.jtds.jdbc;net.sourceforge.jtds.ssl
+net.sourceforge.jtds.jdbc;net.sourceforge.jtds.util
+net.sourceforge.jtds.jdbc.cache;net.sourceforge.jtds.jdbc
+net.sourceforge.jtds.jdbcx;net.sourceforge.jtds.jdbc
+net.sourceforge.jtds.jdbcx;net.sourceforge.jtds.jdbcx.proxy
+net.sourceforge.jtds.jdbcx;net.sourceforge.jtds.util
+net.sourceforge.jtds.jdbcx.proxy;net.sourceforge.jtds.jdbc
+net.sourceforge.jtds.jdbcx.proxy;net.sourceforge.jtds.jdbcx
+net.sourceforge.jtds.ssl;net.sourceforge.jtds.util
+net.sourceforge.jtds.util;net.sourceforge.jtds.jdbc
