@@ -1,9 +1,0 @@
-com.jrefinery.chart;com.jrefinery.chart.event
-com.jrefinery.chart.data;com.jrefinery.chart
-com.jrefinery.chart.demo;com.jrefinery.chart
-com.jrefinery.chart.demo;com.jrefinery.chart.data
-com.jrefinery.chart.demo;com.jrefinery.chart.ui
-com.jrefinery.chart.demo;com.jrefinery.util.ui
-com.jrefinery.chart.event;com.jrefinery.chart
-com.jrefinery.chart.ui;com.jrefinery.chart
-com.jrefinery.chart.ui;com.jrefinery.util.ui
