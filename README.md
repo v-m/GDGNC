@@ -72,19 +72,19 @@ Parameters are dependent of the chosen generator. Some generator requires a numb
 #### Available generators
 
 
-  Nr |                 Name | Nodes | Edges |    Floats parameters | Constants parameters |
--|-|-|-|-|-|
-   0 |                  GNC |  True | False |  |  
-   1 |               GD-GNC |  True | False |                 p, q |  
-   2 |       Baxter & Frean | False |  True |                gamma |  
-   3 |              Vazquez |  True | False |                    p |  
-   4 |          Dorogovtsev |  True | False |  |                 m, A
-   5 |             Grindrod |  True | False |        alpha, lambda |  
-   6 |         Kumar Linear |  True | False |           copyfactor |                    d
-   7 |          Erdos Renyi |  True | False |                    p |  
-   8 |                R-MAT |  True |  True |           a, b, c, d |  
-   9 |             Bollobas | False |  True |   alpha, beta, gamma |    deltain, deltaout
-  10 |                  Goh |  True |  True |  alpha_in, alpha_out |  
+| Nr | Name | Nodes | Edges | Floats parameters | Constants parameters |
+|----|------|-------|-------|-------------------|----------------------|
+| 0 |                  GNC |  True | False |  |  
+| 1 |               GD-GNC |  True | False |                 p, q |  
+| 2 |       Baxter & Frean | False |  True |                gamma |  
+| 3 |              Vazquez |  True | False |                    p |  
+| 4 |          Dorogovtsev |  True | False |  |                 m, A
+| 5 |             Grindrod |  True | False |        alpha, lambda |  
+| 6 |         Kumar Linear |  True | False |           copyfactor |                    d
+| 7 |          Erdos Renyi |  True | False |                    p |  
+| 8 |                R-MAT |  True |  True |           a, b, c, d |  
+| 9 |             Bollobas | False |  True |   alpha, beta, gamma |    deltain, deltaout
+| 10 |                  Goh |  True |  True |  alpha_in, alpha_out |  
 
 #### Examples
 
@@ -156,7 +156,7 @@ In this section, I do present the dataset used in this paper and specify values 
 This section reports the signature filter parameter used for importing the projects.
 
 | Project | Version | Signature filter |
-|-|-|-|
+|---------|---------|------------------|
 |ant|1.9.2|`ant`, `!`|
 |jfreechart|1.0.16|`jfree`, `!`|
 |jftp|1.57|`jftp`, `!`|
@@ -178,7 +178,7 @@ This section reports the signature filter parameter used for importing the proje
 This section report the parameters used to generate graphs for each software.
 
 | Project | #Nodes | #Edges | Erdos | GDGNC | Baxter & Frean |
-|-|-|-|-|-|-|
+|---------|--------|--------|-------|-------|----------------|
 |ant|1252|5763|p=0.00368|p=0.4, q=1.0|gamma=0.4|
 |jfreechart|858|4783|p=0.00650|p=0.5, q=0.7|gamma=0.3|
 |jftp|173|736|p=0.02459|p=0.5, q=0.6|gamma=0.3|
