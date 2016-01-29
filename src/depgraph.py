@@ -5,6 +5,7 @@
 
 import sys
 import inc.dependencies as dl
+import os 
 
 def help():
     print("\n   Synopsis: %s <xmlfile> <outfile> <mode> <granluarity> <depfinder_root> <signaturefilter ...>\n"%os.path.basename(__file__))

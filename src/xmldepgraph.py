@@ -5,6 +5,7 @@
 
 import sys
 import inc.dependencies as dl
+import os
 
 def help():
     print("\n   Synopsis: %s <soft> <outfile> <depfinder_root>\n"%os.path.basename(__file__))

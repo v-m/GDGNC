@@ -4,6 +4,19 @@
 
 This project contains scripts used for my PhD research on software graph shape and generated software graphs.
 
+## Dependencies
+
+Those scripts runs on __Python 2__. Following libraries are requires:
+
+ - networkx
+ - numpy
+ - matplotlib
+ - scipy
+
+On Linux:
+
+    aptitude install python-networkx python-numpy
+
 ## Running
 
 ### Extracting software dependencies
@@ -19,23 +32,28 @@ To extract real graph dependencies you need to download [dependency finder](http
 To extract the dependency finder xml file, use:
 
 ```
-depgraph.py <software> <xmlfile> <pathtodepfindbin>
+$ xmldepgraph.py <folder> <xmlfile> <pathtodepfindbin>
 ```
 
-This command will extract the xml file to `<xmlfile>`. The file will contains all dependencies contained in the jars found recursively in `<software>`. Note that `<pathtodepfindbin>` is the absolute path to the `bin` folder of the dependency finder project (ie. if I do extract dependency finder in my home dir: `/home/vince/DependencyFinder-1.2.1-beta4/bin/`).
-
-Note that this command will simply find all jar files and invoke:
-
+For instance: 
 ```
-<pathtodepfindbin>/DependencyExtractor <jarsfiles> -xml -out <xmlfile>
+$ python2 xmldepgraph.py /home/vince/Temp/ant/ ant.xml /home/vince/Temp/depfinder/bin
 ```
+
+This command will extract the xml file to `<xmlfile>`. The file will contains all dependencies contained in the jars found recursively in `<folder>`. Note that `<pathtodepfindbin>` is the absolute path to the `bin` folder of the dependency finder project (ie. if I do extract dependency finder in my home dir: `/home/vince/DependencyFinder-1.2.1-beta4/bin/`).
+
 
 #### Dependencies
 
 Once you produced an XML file, you can obtain dependencies using:
 
 ```
-xmldepgraph.py <xmlfile> <outfile> <mode> <granluarity> <depfinder_root> <signaturefilter ...>
+depgraph.py <xmlfile> <outfile> <mode> <granluarity> <depfinder_root> <signaturefilter ...>
+```
+Let assume I do installed ant in `/home/vince/Temp/ant/` and dependency finder in `/home/vince/Temp/depfinder`. Those two lines will produce `ant.xml` XML file and `and.csv` graph file for internal connections only and at the class granularity:
+
+```
+$ python2 src/depgraph.py ant.xml ant.csv internal class /home/vince/Temp/depfinder/bin ant '!'
 ```
 
 Parameters:
@@ -47,14 +65,6 @@ Parameters:
   - `<depfinder_root>`  specify the absolute path to the dependency finder bin folder;
   - `<signaturefilter ...>` specify string which validate an item (according to its signature). Use '!' for default package.
 
-#### Example: extracting ant graph
-
-Let assume I do installed ant in `/home/vince/Temp/ant/` and dependency finder in `/home/vince/Temp/depfinder`. Those two lines will produce `ant.xml` XML file and `and.csv` graph file for internal connections only and at the class granularity:
-
-```
-$ python2 depgraph.py /home/vince/Temp/ant/ ant.xml /home/vince/Temp/depfinder/bin
-$ python2 xmldepgraph.py ant.xml ant.csv internal class /home/vince/Temp/depfinder/bin ant !
-```
 
 ### Digraph generation
 
@@ -64,7 +74,7 @@ Execute `python2 graphgen.py` to display the help for graph generation.
 To generate a graph to the standard output, use:
 
 ```
-graphgen.py [graph-type-id] [parameters]
+$ python2 src/graphgen.py [graph-type-id] [parameters]
 ```
 
 Parameters are dependent of the chosen generator. Some generator requires a number of nodes (`nodes=x`), some other a number of edges (`edges=x`). Moreover, almost all generators requires some parameters.
@@ -106,7 +116,7 @@ python2 graphgen.py 9 edges=50 alpha=.2 beta=.3 gamma=.4 deltain=10 deltaout=20
 Use `ks_scores.py`:
 
 ```
-ks_scores.py <realcsvfile> [<generationfolder>]
+$ python2 src/ks_scores.py <realcsvfile> [<generationfolder>]
 ```
 
 This script takes as input a csv file `<realcsvfile>` which describe the software graph and a folder containing a set of csv files `<generationfolder>` to compare with.
@@ -199,14 +209,6 @@ This section report the parameters used to generate graphs for each software.
 
 All graphs are descried in CSV files where each line describe a directed edge separated by `;`.
 
-## Dependencies
-
-Those scripts runs on __Python 2__. Following libraries are requires:
-
- - networkx
- - numpy
- - matplotlib
- - scipy
 
 ## Contact
 
