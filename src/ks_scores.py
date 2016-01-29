@@ -30,11 +30,16 @@ if __name__ == "__main__":
                 testWith.append(fullPathFile)
     else:
         # Generated test...
-        for oneFile in os.listdir(sys.argv[2]):
-            fullPathFile = "%s/%s"%(sys.argv[2], oneFile)
+        if os.path.isfile(sys.argv[2]):
+            testWith.append(sys.argv[2])
+        else:
+            for oneFile in os.listdir(sys.argv[2]):
+                fullPathFile = "%s/%s"%(sys.argv[2], oneFile)
             
-            if os.path.isfile(fullPathFile) and fullPathFile[-4:] == ".csv":
-                testWith.append(fullPathFile)
+                if os.path.isfile(fullPathFile) and fullPathFile[-4:] == ".csv":
+                    testWith.append(fullPathFile)
+    
+    print("Comparing with %d file(s)"%len(testWith))
     
     result = stats.calculateScores(sys.argv[1], testWith, useMethod=score.calculateScore)["merged"]["max"]
     

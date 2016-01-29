@@ -116,11 +116,11 @@ python2 graphgen.py 9 edges=50 alpha=.2 beta=.3 gamma=.4 deltain=10 deltaout=20
 Use `ks_scores.py`:
 
 ```
-$ python2 src/ks_scores.py <realcsvfile> [<generationfolder>]
+$ python2 src/ks_scores.py <file1> [<fileorfolder2>]
 ```
 
-This script takes as input a csv file `<realcsvfile>` which describe the software graph and a folder containing a set of csv files `<generationfolder>` to compare with.
-In the case if `<generationfolder>` is omitted, then the distance of `<realcsvfile>` will be computed with all other programs in the same folder than `<realcsvfile>`.
+This script takes as input a csv file `<file1>` which describe the software graph and a file or a folder containing a set of csv files `<fileorfolder2>` to compare with.
+In the case if `<fileorfolder2>` is omitted, then the distance of `<file1>` will be computed with all other programs in the same folder than `<file1>`.
 
 ### Computing mann-whitney p-value of generated graphs
 
