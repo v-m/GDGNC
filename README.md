@@ -32,7 +32,7 @@ To extract real graph dependencies you need to download [dependency finder](http
 To extract the dependency finder xml file, use:
 
 ```
-$ xmldepgraph.py <folder> <xmlfile> <pathtodepfindbin>
+$ xmldepgraph.py <folder> <output_xmlfile> <pathtodepfindbin>
 ```
 
 For instance: 
@@ -40,7 +40,7 @@ For instance:
 $ python2 xmldepgraph.py /home/vince/Temp/ant/ ant.xml /home/vince/Temp/depfinder/bin
 ```
 
-This command will extract the xml file to `<xmlfile>`. The file will contains all dependencies contained in the jars found recursively in `<folder>`. Note that `<pathtodepfindbin>` is the absolute path to the `bin` folder of the dependency finder project (ie. if I do extract dependency finder in my home dir: `/home/vince/DependencyFinder-1.2.1-beta4/bin/`).
+This command will extract the xml file to `<output_xmlfile>`. The file will contains all dependencies contained in the jars found recursively in `<folder>`. Note that `<pathtodepfindbin>` is the absolute path to the `bin` folder of the dependency finder project (ie. if I do extract dependency finder in my home dir: `/home/vince/DependencyFinder-1.2.1-beta4/bin/`).
 
 
 #### Dependencies
