@@ -37,15 +37,21 @@ def contentASplit(aStr,splits):
 
 	return False
 
-def writeAppropriateOption(subItem,fo, nodeParent, splits, mode="internal", minPoints=2):
+def writeAppropriateOption(subItem,fo, nodeParent, splits, mode="internal", minPoints=2, excluseStartWith=[]):
 	nitem = cleanStar(subItem[4:].replace('\n', "").strip()).replace(", ", "+")
 
 	if len(nitem.split("(")[0].split(".")) < minPoints + 1:
 		nitem = "%s.%s"%("!defaultpackage!", nitem)
 
 	if mode == "internal":
+		for excl in excluseStartWith:
+			if(nitem.startswith(excl) or nodeParent.startswith(excl)):
+				return False
 		keepIt = contentASplit(nitem,splits) and contentASplit(nodeParent,splits)
 	elif mode == "external":
+		for excl in excluseStartWith:
+			if (not(nitem.startswith(excl)) or not(nodeParent.startswith(excl))):
+				return False
 		keepIt = (contentASplit(nitem,splits) and not contentASplit(nodeParent,splits)) or (not contentASplit(nitem,splits) and contentASplit(nodeParent,splits))
 	else:		# Otherwise it's both !
 		keepIt = contentASplit(nitem,splits) or contentASplit(nodeParent,splits)
@@ -150,7 +156,7 @@ def proceedFeatures(dependencyFinderPath, xmlFile, dstFile, splits, mode="intern
 
 # Processing classes
 ######################
-def proceedClasses(dependencyFinderPath, xmlFile, dstFile, splits, mode="internal"):
+def proceedClasses(dependencyFinderPath, xmlFile, dstFile, splits, mode="internal", excluseStartWith=[]):
 	cmd = "%s/DependencyReporter -show-outbounds -class-filter -class-scope %s -out .temp"%(dependencyFinderPath,xmlFile)
 	if debug:
 		print(cmd)
@@ -179,7 +185,7 @@ def proceedClasses(dependencyFinderPath, xmlFile, dstFile, splits, mode="interna
 			if(item[0:8] == "        "):
 				subItem = item[8:]
 				nodeParent = currentPackage+"."+currentClass
-				if writeAppropriateOption(subItem,fo, nodeParent, splits, mode, 1):
+				if writeAppropriateOption(subItem,fo, nodeParent, splits, mode, 1, excluseStartWith):
 					kept = kept + 1
 				else:
 					dropped = dropped + 1

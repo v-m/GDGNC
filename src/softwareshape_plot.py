@@ -33,7 +33,7 @@ distintscolors = ("#000000", "#FFFF00", "#1CE6FF", "#FF34FF", "#FF4A46", "#00894
         "#C895C5", "#320033", "#FF6832", "#66E1D3", "#CFCDAC", "#D0AC94", "#7ED379", "#012C58")
 
 def help():
-    print("\n   Synopsis: %s ... <softwarefolder> <graphplotfile>\n"%os.path.basename(__file__))
+    print("\n   Synopsis: %s <graphplotfile> <softwarefolder ...>\n"%os.path.basename(__file__))
     
     
 if __name__ == "__main__":
@@ -41,20 +41,11 @@ if __name__ == "__main__":
         help()
         sys.exit(0)
         
-    programsToProcess = []    
-    
-    targetFolder = sys.argv[1]
-    while targetFolder[-1] == "/":
-        targetFolder = targetFolder[0:-1]
-    
-    for oneFile in os.listdir(targetFolder):
-        fullPathFile = "%s/%s"%(targetFolder, oneFile)
-        
-        if os.path.isfile(fullPathFile) and fullPathFile[-4:] == ".csv":
-            programsToProcess.append(fullPathFile)
-            
-    targetFile = sys.argv[2]
-    
+    programsToProcess = sys.argv[2:]
+
+    print("plot ",programsToProcess)
+    targetFile = sys.argv[1]
+
     i = 0
     
     for program in programsToProcess:
@@ -74,8 +65,8 @@ if __name__ == "__main__":
     for fig in range(2):
 	plt.figure(fig+1)
 	ax = plt.subplot(1,1,1)
-	handles, labels = ax.get_legend_handles_labels()
-	ax.legend(handles, labels)
+	#handles, labels = ax.get_legend_handles_labels()
+	#ax.legend(handles, labels)
 
 	#plt.xlim([1,50])
 	plt.ylim([0.001,1.0])

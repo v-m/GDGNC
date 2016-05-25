@@ -148,10 +148,11 @@ Print to the standard output each pair computation details and a summary.
 Use `softwareshape_plot.py`:
 
 ```
-softwareshape_plot.py <softwarefolder> <graphplotfile>
+softwareshape_plot.py <graphplotfile> <softwarecsvfile ...>
 ```
 
-Plot the cumulative degree distribution for all software contained in `<softwarefolder>`. Software graphs are __.csv__ files which describes the graph. Two files ares produced (one for in- and another for out- degree): `<graphplotfile>_in.pdf` and `<graphplotfile>_out.pdf`.
+Plot the cumulative degree distribution for the list of softwares <softwarecsvfile ...>. Software graphs are __.csv__ files which describes the graph.
+Two files ares produced (one for in- and another for out- degree): `<graphplotfile>_in.pdf` and `<graphplotfile>_out.pdf`.
 
 ## Research Papers
 
