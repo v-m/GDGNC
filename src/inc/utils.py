@@ -37,3 +37,8 @@ def readGraphCsv(filepath):
                         mygraph.add_edge(graphedge[0], graphedge[1])
                     
         return mygraph
+
+def writeGraphCsv(G, filepath):
+	with open(filepath, 'w') as csvfile:
+		for e in G.edges_iter():
+			csvfile.write("%s;%s\n"%(e[0], e[1]))

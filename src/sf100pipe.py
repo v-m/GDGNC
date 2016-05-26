@@ -3,12 +3,14 @@
 #	Author: Vincenzo Musco (http://www.vmusco.com)
 #####################################################################################################
 
-
 import os
-import inc.dependencies as dl
 import zipfile
 import shutil
 import time
+import inc.gnc as gnc
+import inc.baxter as baxter
+import inc.utils as utils
+import inc.degrees as dl
 
 def getClassesAndJarInJar(jar, reccursive=True):
     print("Treating %s"%jar)
@@ -173,3 +175,63 @@ for dir in os.listdir(folder):
         if(os.path.getsize(projcdpjar) == 0):
             print("Nothing generated as dependency for %s (%d) using jar"%(projnme, projnum))
 
+    G = utils.readGraphCsv(projcdpjar)
+    G_n = G.number_of_nodes()
+    G_e = G.number_of_edges()
+
+    # Generate 30 graphs with similar features
+    ## For Baxter
+    gamma = 0.1
+
+    gendir = "%s/generations"%(projdfn)
+    if(not(os.path.isdir(gendir))):
+        os.mkdir(gendir)
+
+    gendirtype = "%s/BaxterFreanModel"%(gendir)
+    if (not (os.path.isdir(gendirtype))):
+        os.mkdir(gendirtype)
+
+    while gamma < 1.01:
+        gendirincr = "%s/gamma%.1f"%(gendirtype, gamma)
+        if (not (os.path.isdir(gendirincr))):
+            os.mkdir(gendirincr)
+
+        for cpt in range(0, 30, 1):
+            genfile = "%s/%d.csv"%(gendirincr, cpt)
+
+            if not(os.path.isfile(genfile)):
+                B = baxter.generateBaxterFreanModel(nbs={"nb_edges": G_e}, proba={"gamma": gamma})
+                utils.writeGraphCsv(B, genfile)
+                print("Saved   %s" % genfile)
+            else:
+                print("Skipped %s" % genfile)
+
+        gamma = gamma + 0.1
+
+    ## For GDGNC
+    p = 0.0
+    q = 0.0
+
+    gendirtype = "%s/GeneralizedDoubleGNC"%(gendir)
+    if (not (os.path.isdir(gendirtype))):
+        os.mkdir(gendirtype)
+
+    while p < 1.01:
+        while q < 1.01:
+            gendirincr = "%s/p%.1fq%.1f" % (gendirtype, p, q)
+            if (not (os.path.isdir(gendirincr))):
+                os.mkdir(gendirincr)
+
+            for cpt in range(0, 30, 1):
+                genfile = "%s/%d.csv" % (gendirincr, cpt)
+
+                if not (os.path.isfile(genfile)):
+                    G2 = gnc.generateGeneralizedDoubleGNC(nbs={"nb_nodes": G_n}, proba={"p": p, "q": q})
+                    utils.writeGraphCsv(G2, genfile)
+                    print("Saved   %s"%genfile)
+                else:
+                    print("Skipped %s" % genfile)
+
+            q = q + 0.1
+        q = 0.0
+        p = p + 0.1
