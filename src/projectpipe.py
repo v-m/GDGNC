@@ -16,6 +16,9 @@ import inc.dependencies as dl
 import inc.statistics as stats
 import inc.scores as score
 
+#Change this according to the bin folder where you installed depfinder
+depfind = "/home/vince/depfinder/bin"
+
 def getClassesAndJarInJar(jar, reccursive=True):
     print("Treating %s"%jar)
     classes = []
@@ -119,9 +122,6 @@ if __name__ == "__main__":
         #62: [],        # OK?
         #96: [],        # OK?
     }
-    depfind = "/home/vince/Softwares/depfinder/bin"
-
-    #folder = "/home/vince/Experiments/SF100"
 
     for fulldir in sys.argv[1:]:
         if fulldir[-1] == "/":
@@ -152,7 +152,7 @@ if __name__ == "__main__":
             # Extract the xml file
             produced = dl.extractDependenciesAsXmlFile(projxml, depfind, projdir)
 
-        # To use old generation process, remove False from condition !
+        # To use old generation process, remove False from condition to enable!
         if (False or not (os.path.isfile(projcdp)) or os.path.getsize(projcdp) == 0):
             # Extract class dependencies
             filt = ["!defaultpackage!", projnme]
@@ -329,4 +329,4 @@ if __name__ == "__main__":
             if minfoundgdgnc is None or resultsgdgnc[e]["value"] < resultsgdgnc[minfoundgdgnc]["value"]:
                 minfoundgdgnc = e
 
-        print("%25s | %d || %10s | %.5f | %d || %10s | %.5f | %d"%(projnme, projnum, minfoundbaxter, resultsbaxter[minfoundbaxter]["value"], resultsbaxter[minfoundbaxter]["id"],minfoundgdgnc, resultsgdgnc[minfoundgdgnc]["value"], resultsgdgnc[minfoundgdgnc]["id"]))
+        print("%25s | %3d || %10s | %.5f | %3d || %10s | %.5f | %3d"%(projnme, projnum, minfoundbaxter, resultsbaxter[minfoundbaxter]["value"], resultsbaxter[minfoundbaxter]["id"],minfoundgdgnc, resultsgdgnc[minfoundgdgnc]["value"], resultsgdgnc[minfoundgdgnc]["id"]))
