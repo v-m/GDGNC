@@ -6,27 +6,29 @@ import inc.utils as utils
 import inc.scores as score
 import scipy.stats as stats
 
-def calculateScores(program, otherData, useMethod = score.calculateScore):
+def computeScores(program, otherData, useMethod = score.computeScore):
 	scores = {"in":[], "out":[]}
 	mergedscores = {"fscore":[], "max":[]}
-        prog = utils.readGraphCsv(program)
+	prog = utils.readGraphCsv(program)
         
-        for oneGeneration in otherData:
+	for oneGeneration in otherData:
 		graph = utils.readGraphCsv(oneGeneration)
 		
 		if graph is None:
 			return None
 		
-		score.calculateAndAppendScore(graph, prog, scores, useMethod)
-		score.calculateAndAppendScoreMerged(graph, prog, mergedscores, useMethod)
+		score.computeAndAppendScore(graph, prog, scores, useMethod)
+		score.computeAndAppendScoreMerged(graph, prog, mergedscores, useMethod)
 	
 	fscore = score.resultScoreUnique(mergedscores["fscore"])
 	cmax = score.resultScoreUnique(mergedscores["max"])
-			
-	mergeddic = {"fscore": {"min": min(mergedscores["fscore"]), "med": fscore, "max": max(mergedscores["fscore"])}, "max": {"min": min(mergedscores["max"]), "med": cmax, "max": max(mergedscores["max"])}}
+
+	mergeddic = {}
+	mergeddic["fscore"] = {"min": min(mergedscores["fscore"]), "med": fscore, "max": max(mergedscores["fscore"])}
+	mergeddic["max"] = {"min": min(mergedscores["max"]), "med": cmax, "max": max(mergedscores["max"])}
 	return {"inout": score.resultScore(scores, "median"), "merged": mergeddic}
     
-def calculateCloseness(program, data1, data2, useMethod = score.calculateScore):
+def computeCloseness(program, data1, data2, useMethod = score.computeScore):
 	set1in = []
 	set1out = []
 	set1max = []
@@ -37,7 +39,7 @@ def calculateCloseness(program, data1, data2, useMethod = score.calculateScore):
 	prog = utils.readGraphCsv(program)
 	
 	for oneGraph in data1:
-                graph = utils.readGraphCsv(oneGraph)
+		graph = utils.readGraphCsv(oneGraph)
 		
 		r1 = useMethod(graph, prog)
 		

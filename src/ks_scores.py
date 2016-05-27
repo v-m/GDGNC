@@ -6,7 +6,6 @@
 import sys
 import inc.statistics as stats
 import inc.scores as score
-import inc.utils as utils
 import os
 
 def help():
@@ -41,7 +40,7 @@ if __name__ == "__main__":
     
     print("Comparing with %d file(s)"%len(testWith))
     
-    result = stats.calculateScores(sys.argv[1], testWith, useMethod=score.calculateScore)["merged"]["max"]
+    result = stats.computeScores(sys.argv[1], testWith, useMethod=score.computeScore)["merged"]["max"]
     
     print("Delta (min)    : %.5f"%result["min"])
     print("Delta (median) : %.5f"%result["med"]["value"])

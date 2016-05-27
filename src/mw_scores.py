@@ -42,6 +42,6 @@ if __name__ == "__main__":
             if os.path.isfile(fullPathFile) and fullPathFile[-4:] == ".csv":
                 otherData.append(fullPathFile)
     
-    mannwithn = stats.calculateCloseness(sys.argv[1], generations, otherData, useMethod=score.calculateScore)
+    mannwithn = stats.computeCloseness(sys.argv[1], generations, otherData, useMethod=score.computeScore)
     
     print("Mann-whitney p-value = %f"%mannwithn["max"][1])    

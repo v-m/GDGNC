@@ -17,7 +17,7 @@ def unshield(data, forIn):
 	
 	return fsrc1
 
-def calculateScore(d1, d2):
+def computeScore(d1, d2):
 	fsrc1 = unshield(dl.inOutTotalDegreeDistrib(d1), True)
 	fsrc2 = unshield(dl.inOutTotalDegreeDistrib(d2), True)
 	inDist = ks.ksStat(fsrc1, fsrc2, Int=True)[0]
@@ -28,7 +28,7 @@ def calculateScore(d1, d2):
 	
 	return {"in":inDist, "out":outDist}
 
-def calculateKsPython(pvalue, d1, d2):
+def computeKsPython(pvalue, d1, d2):
 	vprog1 = dl.inOutTotalDegreeDistrib(d1)
 	vprog2 = dl.inOutTotalDegreeDistrib(d2)
 
@@ -44,17 +44,17 @@ def calculateKsPython(pvalue, d1, d2):
 	
 	return {"in":inDist, "out":outDist}
 
-def calculateScorePython(d1, d2):
-	return calculateKsPython(False, d1, d2)
+def computeScorePython(d1, d2):
+	return computeKsPython(False, d1, d2)
 
 
-def calculateAndAppendScore(d1, d2, scorearr, useMethod = calculateScore):
+def computeAndAppendScore(d1, d2, scorearr, useMethod = computeScore):
 	outScore = useMethod(d1, d2)
 	
 	scorearr["in"].append(outScore["in"])
 	scorearr["out"].append(outScore["out"])
 	
-def calculateAndAppendScoreMerged(d1, d2, scorearr, useMethod = calculateScore):
+def computeAndAppendScoreMerged(d1, d2, scorearr, useMethod = computeScore):
 	outScore = useMethod(d1, d2)
 	
 	rin = outScore["in"]
