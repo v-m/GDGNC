@@ -40,7 +40,7 @@ if __name__ == "__main__":
     
     print("Comparing with %d file(s)"%len(testWith))
     
-    result = stats.computeScores(sys.argv[1], testWith, useMethod=score.computeScore)["merged"]["max"]
+    result = stats.computeScoresAndSummary(sys.argv[1], testWith, useMethod=score.computeScore)["merged"]["max"]
     
     print("Delta (min)    : %.5f"%result["min"])
     print("Delta (median) : %.5f"%result["med"]["value"])

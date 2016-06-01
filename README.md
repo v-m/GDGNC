@@ -137,7 +137,7 @@ This script takes as input a csv file `<realcsvfile>` which describe the softwar
 Use `softwareshape.py`:
 
 ```
-softwareshape.py <softwarefolder>
+softwareshape.py <softwaregraph1 ... softwaregraphn>
 ```
 
 Calculate the komlogorov-smirnov p-value with each pair of software cumulative in-/out- degree distrbution.

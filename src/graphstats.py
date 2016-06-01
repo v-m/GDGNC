@@ -18,9 +18,12 @@ for project in sys.argv[1:]:
     G = utils.readGraphCsv(project)
     G_e = G.number_of_edges()
     G_n = G.number_of_nodes()
+    conc = (G_e*1.0) /(G_n * (G_n - 1))
 
     N.append(G_n)
     E.append(G_e)
+
+    print("%50s || %5d | %5d | %.5f"%(project, G_n, G_e, conc))
 
 pp = PdfPages("graphstats.pdf")
 

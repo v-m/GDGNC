@@ -11,37 +11,34 @@ import inc.scores as score
 from scipy.stats import ks_2samp
 
 def help():
-    print("\n   Synopsis: %s ... <softwarefolder> [graphplotfile]\n"%os.path.basename(__file__))
-    print("...")
-    
+    print("\n   Synopsis: %s <softwaregraph1> ... <softwaregraphn>\n"%os.path.basename(__file__))
+
     
 if __name__ == "__main__":
     if(len(sys.argv) == 1):
         help()
         sys.exit(0)
         
-    programsToProcess = []    
+    programsToProcess = []
+
+    programsToProcess = sys.argv[1:]
+    #while targetFolder[-1] == "/":
+    #    targetFolder = targetFolder[0:-1]
     
-    targetFolder = sys.argv[1]
-    while targetFolder[-1] == "/":
-        targetFolder = targetFolder[0:-1]
-    
-    for oneFile in os.listdir(targetFolder):
-        fullPathFile = "%s/%s"%(targetFolder, oneFile)
-        
-        if os.path.isfile(fullPathFile) and fullPathFile[-4:] == ".csv":
-            programsToProcess.append(fullPathFile)
+    #for oneFile in os.listdir(targetFolder):
+    #for oneFile in os.listdir(targetFolder):
+    #    fullPathFile = "%s/%s"%(targetFolder, oneFile)
+    #
+    #    if os.path.isfile(fullPathFile) and fullPathFile[-4:] == ".csv":
+    #        programsToProcess.append(fullPathFile)
             
     stats = [ [0, 0, 0, 0], [0, 0, 0, 0]]
 
     print("%78s%s"%("", 35*"*"))
     print("%77s |              p-value            |"%"")
     print("*"*113)
-    print("%20s | %20s | %3s | %8s | %8s > %3s | %8s > %3s | %8s > %3s |"%("Prog 1", "Prog 2", "Dir", "Ks Stat", "Crit val", "Rej", "python", "Rej", "vince", "Rej"))
+    print("%30s | %30s | %3s | %8s | %8s > %3s | %8s > %3s | %8s > %3s |"%("Prog 1", "Prog 2", "Dir", "Ks Stat", "Crit val", "Rej", "python", "Rej", "vince", "Rej"))
     print("*"*113)
-
-    fromV0 = False
-    vertxt = "V0" if fromV0 else "V1"
 
     gran = kstest.ALPHA001
     for forIn in [True, False]:
@@ -49,8 +46,8 @@ if __name__ == "__main__":
             for program2 in programsToProcess:
                 if program1 == program2 or program1 > program2:
                     continue
-                prog1name = program1[program1.rindex("/")+1:-4]
-                prog2name = program2[program2.rindex("/")+1:-4]
+                #prog1name = program1[program1.rindex("/")+1:-4]
+                #prog2name = program2[program2.rindex("/")+1:-4]
                 
                 prog1 = utils.readGraphCsv(program1)
                 prog2 = utils.readGraphCsv(program2)
@@ -68,7 +65,7 @@ if __name__ == "__main__":
                 rejectPython = ret[1]<gran[0] 
                 rejectVince = ret2[1]<gran[0]
                             
-                print("%20s | %20s | %3s | %f | %f > %3s | %f > %3s | %f > %3s |"%(prog1name, prog2name, "IN" if forIn else "OUT", ret2[0], criticalVal, ("YES" if rejectCrtVal else "NO"), ret[1], ("YES" if rejectPython else "NO"), ret2[1], ("YES" if rejectVince else "NO")))
+                print("%30s | %30s | %3s | %f | %f > %3s | %f > %3s | %f > %3s |"%(program1[-40:-10], program2[-40:-10], "IN" if forIn else "OUT", ret2[0], criticalVal, ("YES" if rejectCrtVal else "NO"), ret[1], ("YES" if rejectPython else "NO"), ret2[1], ("YES" if rejectVince else "NO")))
                             
                 if rejectCrtVal:
                     stats[forIn][0] = stats[forIn][0] + 1

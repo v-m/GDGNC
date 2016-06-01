@@ -70,29 +70,36 @@ def computeAndAppendScoreMerged(d1, d2, scorearr, useMethod = computeScore):
 
 def resultScoreUnique(data, t = "median"):
 	datas = sorted(data)
-	
+
 	if t == "median":
 		lenins = int(len(datas) / 2)
 		if not len(datas) % 2:
 			datam = (datas[lenins] + datas[lenins]) / 2.0
-		else:		
+		else:
 			datam = datas[lenins]
 	elif t == "avg":
 		for i in range(len(datas)):
 			datam = datas[i]
 		datam = datam / len(datas)
 	elif t == "max":
-		datam = -1
-		for i in range(len(ins)):
-			datam = datas[i] if datas[i] > datam else datam
-			
+		datam = None
+		for i in range(len(datas)):
+			datam = datas[i] if datam is None or datas[i] > datam else datam
+	elif t == "min":
+		datam = None
+		for i in range(len(datas)):
+			datam = datas[i] if datam is None or datas[i] < datam else datam
+
 	dataid = 0
-	for i in data:
-		if i != datam:
-			dataid = dataid + 1
-		else:
-			break
-		
+	if t == "avg":
+		dataid = -1
+	else:
+		for i in data:
+			if i != datam:
+				dataid = dataid + 1
+			else:
+				break
+
 	return {"value": datam, "id": dataid}
 
 def resultScore(data, t = "median"):
