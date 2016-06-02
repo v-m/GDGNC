@@ -156,7 +156,24 @@ def computeClosenessBetweenGenerationsOptimized(generated1, generated2, prog, us
 		set1max.append(max(r1["in"],r1["out"]))
 		set2max.append(max(r2["in"],r2["out"]))
 
-	return {"in": stats.mannwhitneyu(set1in, set2in), "out": stats.mannwhitneyu(set1out, set2out), "max": stats.mannwhitneyu(set1max, set2max)}
+	ret = {"in": None, "out": None, "max": None}
+
+	try:
+		ret["in"]  = stats.mannwhitneyu(set1in, set2in)
+	except ValueError:
+		pass
+
+	try:
+		ret["out"] = stats.mannwhitneyu(set1out, set2out)
+	except ValueError:
+		pass
+
+	try:
+		ret["max"] = stats.mannwhitneyu(set1max, set2max)
+	except ValueError:
+		pass
+
+	return ret
 
 # Compute the Cohen d effect size
 def cohen_d(x, y):

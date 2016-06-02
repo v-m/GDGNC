@@ -26,9 +26,9 @@ READJAR_PROCESS1 = False
 READJAR_PROCESS2 = False
 
 OPTIM_GENERATION = False
-COMPR_GENERATION = "/home/vince/Experiments/SF100/allresults.csv"   #Put None to disable this part
+COMPR_GENERATION = "../graphs/experiment-sf100/optimization.csv"   #Put None to disable this part
 
-COMPUTEOPERATION = "optimize" # Set to "compare", "optimize" or None
+COMPUTEOPERATION = "compare" # Set to None, "optimize" or "compare"
 
 filterfor = {
     72: ["bcry"],
