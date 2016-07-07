@@ -11,9 +11,11 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
-graphfonttitles = 10
-graphfontaxis = 1
-graphfontlegend = 10
+font = {  # 'family': "",
+    # 'weight': "normal",
+    'size': 16}
+
+plt.rc('font', **font)
 
 distintscolors = ("#000000", "#FFFF00", "#1CE6FF", "#FF34FF", "#FF4A46", "#008941", "#006FA6", "#A30059",
         "#FFDBE5", "#7A4900", "#0000A6", "#63FFAC", "#B79762", "#004D43", "#8FB0FF", "#997D87",
@@ -33,7 +35,7 @@ distintscolors = ("#000000", "#FFFF00", "#1CE6FF", "#FF34FF", "#FF4A46", "#00894
         "#C895C5", "#320033", "#FF6832", "#66E1D3", "#CFCDAC", "#D0AC94", "#7ED379", "#012C58")
 
 def help():
-    print("\n   Synopsis: %s <graphplotfile> <softwarefolder ...>\n"%os.path.basename(__file__))
+    print("\n   Synopsis: %s <softwaregraph ...>\n"%os.path.basename(__file__))
     
     
 if __name__ == "__main__":
@@ -43,39 +45,42 @@ if __name__ == "__main__":
         
     programsToProcess = sys.argv[2:]
 
-    print("plot ",programsToProcess)
+    #print("plot ",programsToProcess)
     targetFile = sys.argv[1]
 
     i = 0
-    
+
     for program in programsToProcess:
         progname = program[program.rindex("/")+1:-4]
         
-	prog = utils.readGraphCsv(program)
-	vprog = dl.inOutTotalDegreeDistrib(prog)
-	vprog.transformToCumulative(True)
-	vprog.normalizeAxis(False, True)
-	ax = plt.subplot(1,1,1)
-	plt.figure(1)
-	vprog.plotOnGraph(iin = True, iout = False, thickness=.5, color=distintscolors[i], label=progname, linestyle="-", marker="")
-	plt.figure(2)
-	vprog.plotOnGraph(iin = False, iout = True, thickness=.5, color=distintscolors[i], label=progname, linestyle="-", marker="")
-	i = i + 1
+        prog = utils.readGraphCsv(program)
+        vprog = dl.inOutTotalDegreeDistrib(prog)
+        vprog.transformToCumulative(True)
+        vprog.normalizeAxis(False, True)
+        ax = plt.subplot(1,1,1)
+        plt.figure(1)
+        vprog.plotOnGraph(iin = True, iout = False, thickness=.5, color=distintscolors[i], label=progname, linestyle="-", marker="")
+        plt.figure(2)
+        vprog.plotOnGraph(iin = False, iout = True, thickness=.5, color=distintscolors[i], label=progname, linestyle="-", marker="")
+        i = i + 1
+
+    pp = PdfPages("softwareshapeplot.pdf")
 
     for fig in range(2):
-	plt.figure(fig+1)
-	ax = plt.subplot(1,1,1)
-	#handles, labels = ax.get_legend_handles_labels()
-	#ax.legend(handles, labels)
+        plt.figure(fig+1)
+        ax = plt.subplot(1,1,1)
+        #handles, labels = ax.get_legend_handles_labels()
+        #ax.legend(handles, labels)
 
-	#plt.xlim([1,50])
-	plt.ylim([0.001,1.0])
-	ax.set_xscale('log')
-	ax.set_yscale('log')
-	plt.xlabel("%s-degrees"%("In" if fig == 0 else "Out"))
-	plt.ylabel("Cumulative frequency")
-	plt.gcf().set_size_inches(10,6)
-	plt.savefig('%s%s.pdf'%(targetFile, "In" if fig == 0 else "Out"))
-	#pp.savefig()
-	
-    #pp.close()
+        plt.xlim([1,10000])
+        plt.ylim([0.001,1.0])
+        ax.set_xscale('log')
+        ax.set_yscale('log')
+        plt.xlabel("%s-degrees"%("In" if fig == 0 else "Out"))
+        plt.ylabel("Cumulative frequency")
+        plt.gcf().set_size_inches(10,6)
+
+        #plt.savefig('%s%s.pdf'%(targetFile, "In" if fig == 0 else "Out"))
+        pp.savefig()
+
+    pp.close()

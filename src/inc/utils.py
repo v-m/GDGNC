@@ -42,3 +42,15 @@ def writeGraphCsv(G, filepath):
 	with open(filepath, 'w') as csvfile:
 		for e in G.edges_iter():
 			csvfile.write("%s;%s\n"%(e[0], e[1]))
+
+# http://arxiv.org/abs/1308.4067
+def s_score(G):
+	score = 0
+
+	for e in G.edges_iter():
+		deg1 = G.degree(e[0])
+		deg2 = G.degree(e[1])
+
+		score = score + (deg1 * deg2)
+
+	return score
